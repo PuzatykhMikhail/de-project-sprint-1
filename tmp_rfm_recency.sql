@@ -1,7 +1,7 @@
 insert into analysis.tmp_rfm_recency
 select
 	usr.id as user_id,
-	ntile(5) over (order by max(ord.order_ts)) as recency 
+	ntile(5) over (order by max(ord.order_ts) nulls first) as recency 
 from analysis.v_users as usr
 left join analysis.v_orders  as ord
 	on usr.id = ord.user_id 
